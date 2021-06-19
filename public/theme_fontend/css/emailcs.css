@@ -1,0 +1,113 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+
+
+
+nav a#pull {
+	display: none;
+}
+@media only screen and (max-width : 480px) {
+	nav {
+		border-bottom: 0;
+	}
+	nav ul {
+		display: none;
+		height: auto;
+	}
+	#logo{
+		position: relative;
+	}
+	nav a#pull {
+		display: block;
+		float: left;
+		/* background-color: #ff9600; */
+		/* width: 100%; */
+		position: absolute;
+		top: 50%;
+	}
+	nav a#pull:after {
+		content:"";
+		/* background: url('../img/home/nav.png') no-repeat; */
+		width: 30px;
+		height: 30px;
+		display: inline-block;
+		position: absolute;
+		/* rightright: 15px; */
+		top: 0px;
+		right: 0;
+	}
+	#menu{
+		border: 0;
+	}
+}
+
+@media only screen and (max-width : 320px) {
+	nav li {
+		display: block;
+		float: none;
+		width: 100%;
+	}
+	#menu{
+		border: 0;
+	}
+}
+
+.my-btn{
+	color: #fff;
+	border-radius: 0px;
+	border-color: #ff9600;
+	background: #ff9600;
+}
+.my-btn:last-child{
+	background: #d9534f;
+	border-color: #d43f3a;
+}      
+
+
+.btn-danger {
+	color: #fff;
+	background-color: #ff9600;
+	border-color: #fff;
+}
+
+.btn-danger:hover {
+	color: #fff;
+	background-color: #ff9600;
+	border-color: #fff;
+}
+#wrap-inner{
+	margin-top: 15px;
+}
+#khach-hang h3{
+	color: #ff9600;
+	margin-bottom: 15px;
+}
+#hoa-don h3{
+	color: #ff9600;
+	margin-bottom: 15px;
+}
+table{
+	font-size: 16px;
+}
+table td{
+	padding: 15px 5px;
+}
+table td.price{
+	color: red;
+}
+table td.total-price{
+	font-weight: bold;
+	color: #e60000;
+}
+table tr.bold{
+	font-weight: bold;
+}
+.info{
+	font-weight: bold
+}
+p.info{
+	margin-top: 20px;
+}
