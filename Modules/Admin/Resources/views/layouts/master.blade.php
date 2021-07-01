@@ -6,7 +6,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <head>
-  <title>Visitors an Admin Panel Category Bootstrap Responsive Website Template | Home :: w3layouts</title>
+  <title>Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -66,13 +66,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
               <img alt="" src="images/2.png">
-              <span class="username">John Doe</span>
+              <span class="username">THteaM</span>
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
               <li><a href="#"><i class=" fa fa-suitcase"></i>Thông tin</a></li>
               <li><a href="#"><i class="fa fa-cog"></i> Cài đặt</a></li>
-              <li><a href="{{URL::to ('/logout') }}"><i class="fa fa-key"></i> Đăng xuất</a></li>
+              <li><a href="{{route('logout') }}"><i class="fa fa-key"></i> Đăng xuất</a></li>
             </ul>
           </li>
           <!-- user login dropdown end -->

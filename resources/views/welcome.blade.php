@@ -97,7 +97,7 @@
 
 			@endforeach    
 		</div>   
-
+		
 	</div>
 
 	<div class="products">
@@ -149,8 +149,9 @@
 		@if($cate->c_total_product>0)
 		<h3>{{ $cate->c_name }}</h3>
 		<div class="product-list row">
-			{{-- @foreach($news as $item)
-
+			
+			@foreach($pros as $item)
+			@if ($item->prod_cate == $cate->c_id)
 			<div class="product-item col-md-4 col-sm-6 col-xs-12">
 				<a href="#"><img src="{{asset('/storage/app/avatar/'.$item->p_image)}}" class="img-thumbnail"></a>
 				<p><a href="#">{{$item->p_name}}</a></p>
@@ -161,7 +162,8 @@
 					<a href="{{ route('getDetails',['id'=>$item->p_id,'slug'=>$item->p_slug]) }}">Xem chi tiết </a>
 				</div>                                    
 			</div>
-			@endforeach     --}}
+			@endif
+			@endforeach    
 			
 		</div>  
 		@endif

@@ -10,9 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['prefix'=>'admin'],function(){
+	Route::group(['prefix'=>'login','middleware'=>'CheckLogedIn'],function(){
+		Route::get('/','AdminLoginController@index');
+		Route::post('/','AdminLoginController@postLogin');
+	});
+});
+Route::group(['prefix'=>'admin','middleware'=>'CheckLogedOut'],function(){
 
-Route::prefix('admin')->group(function() {
 	Route::get('/', 'AdminController@index');
+	Route::get('/logout', 'AdminController@getLogout')->name('logout');
 
 	Route::group(['prefix' => 'category'],function(){
 		Route::get('/','AdminCategoryController@index') -> name('admin.get.list.category');

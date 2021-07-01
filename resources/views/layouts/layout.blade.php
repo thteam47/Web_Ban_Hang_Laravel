@@ -28,11 +28,11 @@
 				</div>
 				<div id="search" class="col-md-7 col-sm-12 col-xs-12">
 					<form method="get" action="{{ route('search') }}" enctype="multipart/form-data" role ="search" class="navbar-form">
-						<div class="input-group">
-							<div class="input-group-btn">
+						<div class="input-group" >
+							<div class="input-group-btn" style="width: 70%;">
 								<input type="text" class="form-control" placeholder="Search" name="result">
 							</div>
-							<div class="input-group-btn">
+							<div class="input-group-btn" style="width: 30%;">
 								<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
 							</div>
 						</div>

@@ -17,6 +17,7 @@ class WebbhController extends Controller
     	$viewData['news'] = Product::orderBy('p_id','desc')->take(4)->get();
         $viewData['advs'] = Advertisement::all();
         $viewData['count_advs'] = Advertisement::count();
+        $viewData['pros'] = Product::all();
     	return view('welcome',$viewData);
     }
     public function getDetails($id) {

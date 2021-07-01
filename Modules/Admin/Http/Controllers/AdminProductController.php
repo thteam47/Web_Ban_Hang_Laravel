@@ -40,7 +40,27 @@ class AdminProductController extends Controller
      */
     public function store(RequestProduct $requestProduct){
         //dd($requestProduct->all());
-        $this->insertOrUpdate($requestProduct);
+        $product = new Product();
+        $filename = $requestProduct->img->getClientOriginalName();
+        $product->p_name = $requestProduct->p_name;
+        $product->p_description =  $requestProduct->p_description;
+        $product->p_slug =  str_slug($requestProduct->p_name);
+        $product->p_price =  $requestProduct->p_price;
+        $product->p_promotion =  $requestProduct->p_promotion;
+        $product->p_status =  $requestProduct->p_status;
+        $product->p_warranty = $requestProduct->p_warranty;
+        $product->p_accessories = $requestProduct->p_accessories;
+        $product->p_description = $requestProduct->p_description;
+        $product->p_image =  $filename;
+        $product->p_hot =  $requestProduct->p_hot ? 1 : 0;
+        $product->p_active =  $requestProduct->p_active ? 1 : 0;
+        $product->p_condition =  $requestProduct->p_condition;
+        $product->prod_cate = $requestProduct->prod_cate;
+        $requestProduct->img->storeAs('avatar',$filename);
+        $category = Category::find($product->prod_cate);
+        $category->c_total_product = $category->c_total_product +1;
+        $product->save();
+        $category->save();
 
         return redirect()->back();
     }
@@ -50,44 +70,31 @@ class AdminProductController extends Controller
         return view('admin::product.update',$viewData);
     }
     public function update(RequestProduct $requestProduct,$p_id){
+        $product = Product::find($p_id);
+        if($requestProduct->file('imgAdv')){
+            $filename = $request->file('img')->getClientOriginalName();
+            $product->p_image =  $filename;
+            $requestProduct->file('img')->storeAs('avatar',$filename);
+        }   
+        $product->p_name = $requestProduct->p_name;
+        $product->p_description =  $requestProduct->p_description;
+        $product->p_slug =  str_slug($requestProduct->p_name);
+        $product->p_price =  $requestProduct->p_price;
+        $product->p_promotion =  $requestProduct->p_promotion;
+        $product->p_status =  $requestProduct->p_status;
+        $product->p_warranty = $requestProduct->p_warranty;
+        $product->p_accessories = $requestProduct->p_accessories;
+        $product->p_description = $requestProduct->p_description;
+        $product->p_hot =  $requestProduct->p_hot ? 1 : 0;
+        $product->p_active =  $requestProduct->p_active ? 1 : 0;
+        $product->p_condition =  $requestProduct->p_condition;
+        $product->prod_cate = $requestProduct->prod_cate;
 
-        $this->insertOrUpdate($requestProduct,$p_id);
+        $product->save();
 
         return redirect('admin/product');
     }
-    public function insertOrUpdate(RequestProduct $requestProduct,$p_id=''){
-        $result =1;
-        try {
-            $product = new Product();
-            if ($p_id){
-                $product = Product::find($p_id);
-            }
-            $filename = $requestProduct->img->getClientOriginalName();
-            $product->p_name = $requestProduct->p_name;
-            $product->p_description =  $requestProduct->p_description;
-            $product->p_slug =  str_slug($requestProduct->p_name);
-            $product->p_price =  $requestProduct->p_price;
-            $product->p_promotion =  $requestProduct->p_promotion;
-            $product->p_status =  $requestProduct->p_status;
-            $product->p_warranty = $requestProduct->p_warranty;
-            $product->p_accessories = $requestProduct->p_accessories;
-            $product->p_description = $requestProduct->p_description;
-            $product->p_image =  $filename;
-            $product->p_hot =  $requestProduct->p_hot ? 1 : 0;
-            $product->p_active =  $requestProduct->p_active ? 1 : 0;
-            $product->p_condition =  $requestProduct->p_condition;
-            $product->prod_cate = $requestProduct->prod_cate;
-            $requestProduct->img->storeAs('avatar',$filename);
-            $category = Category::find($product->prod_cate);
-            $category->c_total_product = $category->c_total_product +1;
-            $product->save();
-            $category->save();
-        } catch (Exception $e) {
-            $result =0;
-            Log::error("[Error insertUpdate product]".$e->getMessage());
-        }
-        return $result;
-    }
+    
     public function detroyX($id){
         $product = Product::find($id);
         $category = Category::find($product->prod_cate);

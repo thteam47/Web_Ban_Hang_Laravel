@@ -17,10 +17,11 @@ body{
 #logo h1{	
 	line-height: 98px;
 }
+
 #search input{
 	margin-top: 30px;
 	float: left;
-}
+} 
 #search input[type=text]{
 	width: 450px;
 	height: 40px;

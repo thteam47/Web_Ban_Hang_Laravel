@@ -24,7 +24,7 @@ class RequestProduct extends FormRequest
     public function rules()
     {
         return [
-            'p_name' => 'required|unique:products,p_name'.$this->p_id,
+            'p_name' => 'required',
             'p_price' => 'required',
             'p_description' => 'required',
             'p_image' => 'img',
@@ -37,7 +37,7 @@ class RequestProduct extends FormRequest
     public function messages(){
         return [
             'p_name.required' => 'Trường này không được để trống',
-            'p_name.unique' => 'Tên danh mục đã tồn tại',
+            //'p_name.unique' => 'Tên danh mục đã tồn tại',
             'p_price.required' => 'Trường này không được để trống',
             'p_description.required' => 'Trường này không được để trống',
             'p_accessories.required' => 'Trường này không được để trống'
