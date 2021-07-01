@@ -1,0 +1,390 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "server.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "ServerService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/addServer": {
+      "post": {
+        "operationId": "ServerService_addServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serverResponseServer"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serverServer"
+            }
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    },
+    "/admin": {
+      "post": {
+        "operationId": "ServerService_login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serverResultLogin"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serverLoginServer"
+            }
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    },
+    "/dashboard": {
+      "get": {
+        "operationId": "ServerService_index",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serverListServer"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "numberPage",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limitPage",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      },
+      "delete": {
+        "operationId": "ServerService_deleteServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serverDeleteServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "idServer",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    },
+    "/detailsServer/{idServer}": {
+      "get": {
+        "operationId": "ServerService_detailsServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serverDetailsServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "idServer",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serverName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeIn",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeOut",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      },
+      "put": {
+        "operationId": "ServerService_updateServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serverResponseServer"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "idServer",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "ServerService"
+        ]
+      }
+    },
+    "/export": {
+      "get": {
+        "operationId": "ServerService_export",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serverExportResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ServerService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "DetailsServerResponseData": {
+      "type": "object",
+      "properties": {
+        "statusServer": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/serverStatusDetail"
+          }
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "typeUrl": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "serverDeleteServerResponse": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        }
+      }
+    },
+    "serverDetailsServerResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/DetailsServerResponseData"
+        }
+      }
+    },
+    "serverExportResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "serverListServer": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/serverServer"
+          }
+        }
+      }
+    },
+    "serverLoginServer": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "serverResponseServer": {
+      "type": "object",
+      "properties": {
+        "idServer": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/serverServer"
+        }
+      }
+    },
+    "serverResultLogin": {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean"
+        },
+        "accessToken": {
+          "type": "string"
+        }
+      }
+    },
+    "serverServer": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "serverName": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "serverStatusDetail": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "time": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
