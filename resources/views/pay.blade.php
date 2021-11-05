@@ -7,12 +7,10 @@
 	<ul>
 		<li class="menu-item">danh mục sản phẩm</li>
 		@foreach($category as $item)
-		<li class="menu-item"><a href="{{ route('getCategory',['id'=>$item->c_id,'slug'=>$item->c_slug]) }}" title="">{{ $item->c_name }} ({{ $item->c_total_product }})</a></li>
+		<li class="menu-item"><a href="{{ route('getCategory',['id'=>$item->c_id,'slug'=>$item->c_slug]) }}" title=""><i class="{{ $item->c_icon }}" style="padding-right: 10px;"></i> {{ $item->c_name }} ({{ $item->c_total_product }})</a></li>
 		@endforeach
-
 	</ul>
-</nav>
-@endsection
+</nav>on
 
 @section('main')
 
@@ -46,4 +44,12 @@
 	
 </div>		
 
+@endsection
+@endsection
+@section('userlogin')
+	@if($checklogin==1)
+	<a class="login" style="color: white;text-align: center;margin:auto; font-size: 14px;font-weight: bold;" href="{{ route('getShow') }}"><?php echo Auth::user()->name; ?></a>
+	@else
+	<a class="login" style="color: white;text-align: center;margin:auto; font-size: 14px;font-weight: bold;" href="{{ route('loginUser') }}">Đăng nhập</a>
+	@endif
 @endsection

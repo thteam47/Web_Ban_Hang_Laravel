@@ -53,7 +53,7 @@
 						<td><?php echo $i++ ?></td>
 						<td>{{ $category->c_name }}</td>
 						<td>
-							<i class="fa {{ $category->c_icon }}" style="font-size: 40px;" ></i>
+							<i class="{{ $category->c_icon }}" style="font-size: 40px;" ></i>
 						</td>
 						<td>{{ $category->getStatus($category->c_active)['name'] }}</td>
 						<td>

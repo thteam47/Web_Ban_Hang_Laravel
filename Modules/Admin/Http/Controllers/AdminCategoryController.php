@@ -51,7 +51,7 @@ class AdminCategoryController extends Controller
                 $category = Category::find($id);
             }
             $category->c_name = $requestCategory->name;
-            $category->c_icon =  $requestCategory->icon;
+            $category->c_icon =  "fa ".$requestCategory->icon;
             $category->c_slug =  str_slug($requestCategory->name);
             if (!$requestCategory->active) $category->c_active =0;           
             $category->save();

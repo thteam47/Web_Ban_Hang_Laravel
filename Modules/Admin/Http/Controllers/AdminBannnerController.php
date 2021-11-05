@@ -5,6 +5,7 @@ namespace Modules\Admin\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Models\Models\Banner;
 
 class AdminBannnerController extends Controller
 {
@@ -14,66 +15,51 @@ class AdminBannnerController extends Controller
      */
     public function index()
     {
-        return view('admin::index');
+        $viewData['bans'] = Banner::all();
+        return view('admin::banner.index',$viewData);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('admin::create');
+    public function create(){
+        return view ('admin::banner.create');
     }
+    public function store(Request $request){
+        $this->insertOrUpdate($request);
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
+        return back();
+    
     }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('admin::show');
+    public function edit($id){
+        $ban = Banner::find($id);
+        return view('admin::banner.update',compact('ban'));
     }
+    public function update(Request $request,$id){
+        
+        $this->insertOrUpdate($request,$id);
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('admin::edit');
+        return back();
     }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function insertOrUpdate(Request $request,$id=''){
+        $result =1;
+        try {
+            $ban = new Banner();
+            if ($id){
+                $ban = Banner::find($id);
+            }
+            if($request->file('imgBan')){
+                $filename = $request->file('imgBan')->getClientOriginalName();
+                $ban->ban_img =  $filename;
+                $request->file('imgBan')->storeAs('banImg',$filename);
+            }            
+            $ban->ban_link = $request->link;           
+            
+            $ban->save();
+        } catch (Exception $e) {
+            $result =0;
+            Log::error("[Error insertUpdate Banner]".$e->getMessage());
+        }
+        return $result;
     }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+    public function detroyX($id){
+        banner::find($id)->delete();
+        return redirect()->back();
     }
 }

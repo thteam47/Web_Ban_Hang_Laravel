@@ -36,10 +36,10 @@
 				<thead>
 					<tr>
 						
-						<th>STT</th>
-						<th>Ảnh quảng cáo</th>
-						<th>Liên kết tới trang</th>
-						<th>Thao tác</th>
+						<th style="width: 5%;">;STT</th>
+						<th style="width: 30%;">Ảnh quảng cáo</th>
+						<th style="width: 50%;">Liên kết tới trang</th>
+						<th style="width: 15%;">Thao tác</th>
 					</tr>
 				</thead>
 				<tbody>

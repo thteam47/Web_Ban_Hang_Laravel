@@ -28,7 +28,6 @@ class RequestProduct extends FormRequest
             'p_price' => 'required',
             'p_description' => 'required',
             'p_image' => 'img',
-            'p_accessories' => 'required'
             // 'p_description' => 'required',
 
         ];
@@ -40,7 +39,7 @@ class RequestProduct extends FormRequest
             //'p_name.unique' => 'Tên danh mục đã tồn tại',
             'p_price.required' => 'Trường này không được để trống',
             'p_description.required' => 'Trường này không được để trống',
-            'p_accessories.required' => 'Trường này không được để trống'
+            //'p_accessories.required' => 'Trường này không được để trống'
 
             //'p_description.required' => 'Trường này không được để trống'
         ];

@@ -39,9 +39,11 @@
 						<th style="width:5%;">STT</th>
 						<th style="width:20%;">Tên sản phẩm</th>
 						<th style="width:10%;">Giá sản phẩm</th>
-						<th style="width:20%;">Ảnh sản phẩm</th>
-						<th style="width:5%;">Tình trạng</th>
-						<th style="width:5%;">Trạng thái</th>
+						<th style="width:15%;">Ảnh sản phẩm</th>
+						@hasAnyrole(['admin','assistant'])
+						<th style="width:10%;">Người bán</th>
+						<th style="width:5%;">Email</th>
+						@endhasAnyrole
 						<th style="width:10%;">Danh mục</th>
 						<th style="width:5%;">Nổi bật</th>
 						<th style="width:5%;">Hiển thị</th>
@@ -52,6 +54,7 @@
 					@if (isset($productList))
 					<?php $i=1; ?>
 					@foreach($productList as $product)
+
 					<tr>
 						<td><?php echo $i++ ?></td>
 						<td >{{ $product->p_name }}</td>						
@@ -59,11 +62,14 @@
 						<td>
 						<img src="{{ asset('/storage/app/avatar/'.$product->p_image) }}" alt="" class="thumbnail" width="100px" height="100px">
 						</td>
-						<td>{{ $product->p_condition }}</td>
-						<td>{{ $product->p_status }} </td>
+						@hasAnyrole(['admin','assistant'])
+						<td>{{ $product->name }}</td>
+						<td>{{ $product->email }} </td>
+						@endhasAnyrole
 						<td>{{ $product->c_name }}</td>
 						<td>{{ $product->p_hot }}</td>
 						<td>{{ $product->p_active }}</td>
+
 						<td>
 							<div class="btn-group">
 								<div class="btn btn-outline-warning" style="border: 2px">
@@ -80,6 +86,11 @@
 					@endif
 				</tbody>
 			</table>
+			<div id="pagination" style="margin: auto;text-align: center;">
+				<ul class="pagination pagination-lg justify-content-center">
+					{{ $productList->links('vendor/pagination/bootstrap-4') }};
+				</ul>
+			</div>
 		</div>
 		
 	</div>

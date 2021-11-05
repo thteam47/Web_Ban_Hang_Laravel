@@ -27,7 +27,5 @@ class AppServiceProvider extends ServiceProvider
         $viewData['category'] = Category::all();
         view()->share($viewData);
         Schema::defaultStringLength(191);
-
-
     }
 }

@@ -17,12 +17,13 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->char('phone')->nullable();
             $table->string('avatar')->nullable();
             $table->string('username');
-            //người dùng vẫn có tài khoản, admin cho phép login hay không
-            $table->tinyInteger('active')->default(1)->index();
+            $table->tinyInteger('active')->default(0)->index();
             $table->string('password');
+            $table->Integer('otp');
             $table->rememberToken();
             $table->timestamps();
         });

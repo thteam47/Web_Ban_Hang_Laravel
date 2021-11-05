@@ -55,7 +55,7 @@
 					<div class="form-group has-success anh">
 						<label class="col-lg-3 control-label">Ảnh sản phẩm</label>
 						<div class="col-lg-6">
-							<input id="img" type="file" name="img" class="form-control hidden" onchange="changeImg(this)">
+							<input id="img" type="file" name="imgAdv" class="form-control hidden" onchange="changeImg(this)">
 							<img id="avatar" style="cursor: pointer;" class="thumbnail" width="200px" src="{{asset('storage/app/avatar/'.$product->p_image)  }}">
 						</div>
 					</div>
@@ -88,8 +88,8 @@
 						<label class="col-lg-3 control-label">Trạng thái</label>
 						<div class="col-lg-6">
 							<select name="p_status" id="" class="form-control">
-								<option value="1" @if($product->p_status==1) checked @endif>Còn hàng</option>
-								<option value="0" @if($product->p_status==0) checked @endif>Hết hàng</option>			
+								<option value="1" @if($product->p_status==1) selected @endif>Còn hàng</option>
+								<option value="0" @if($product->p_status==0) selected @endif>Hết hàng</option>			
 							</select>
 						</div>
 					</div>

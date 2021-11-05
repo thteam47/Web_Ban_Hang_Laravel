@@ -30,6 +30,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+            //'throttle:30,3',
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
@@ -53,8 +54,13 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'CheckUser' => \App\Http\Middleware\CheckUser::class,
+        'CheckPassExpires' => \App\Http\Middleware\CheckPassExpires::class,
+        'CheckVerify' => \App\Http\Middleware\CheckVerify::class,
         'CheckLogedIn' => \App\Http\Middleware\CheckLogedIn::class,
-        'CheckLogedOut' => \App\Http\Middleware\CheckLogedOut::class,
+        'CheckLoginUser' => \App\Http\Middleware\CheckLoginUser::class,
+        'CheckOtp' => \App\Http\Middleware\CheckOtp::class,
+        'Otp' => \App\Http\Middleware\Otp::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

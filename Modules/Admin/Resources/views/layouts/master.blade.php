@@ -40,7 +40,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <header class="header fixed-top clearfix">
       <!--logo start-->
       <div class="brand">
-        <a href="admin" class="logo">
+        <a href="{{route ('homeAdmin') }}" class="logo">
           Admin
         </a>
         <div class="sidebar-toggle-box">
@@ -65,8 +65,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <!-- user login dropdown start-->
           <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-              <img alt="" src="images/2.png">
-              <span class="username">THteaM</span>
+              <span class="username"><?php echo Auth::user()->name; ?></span>
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
@@ -89,26 +88,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="leftside-navigation">
           <ul class="sidebar-menu" id="nav-accordion">
             <li>
-              <a class="active" href="{{URL::to ('/dashboard') }}">
+              <a class="active" href="{{route ('homeAdmin') }}">
                 <i class="fa fa-dashboard"></i>
                 <span>Tổng quan</span>
               </a>
             </li>
-
             <li class="sub-menu">
               <a href="javascript:;">
-                <i class="fa fa-book"></i>
-                <span>Danh mục sản phẩm</span>
-              </a>
-              <ul class="sub">
-                <li><a href="{{ route('admin.get.list.category') }}">Danh sách danh mục</a></li>
-                <li><a href="{{ route('admin.get.create.category') }}">Thêm danh mục sản phẩm</a></li>
-
-              </ul>
-            </li>
-            <li class="sub-menu">
-              <a href="javascript:;">
-                <i class="fa fa-book"></i>
+                <i class="fa fa-product-hunt"></i>
                 <span>Sản phẩm</span>
               </a>
               <ul class="sub">
@@ -116,9 +103,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <li><a href="{{ route('admin.get.create.product') }}">Thêm sản phẩm</a></li>
               </ul>
             </li>
+            @hasAnyrole(['admin','assistant'])
             <li class="sub-menu">
               <a href="javascript:;">
-                <i class="fa fa-book"></i>
+                <i class="fa fa-university"></i>
+                <span>Danh mục</span>
+              </a>
+              <ul class="sub">
+                <li><a href="{{ route('admin.get.list.category') }}">Danh sách danh mục</a></li>
+                <li><a href="{{ route('admin.get.create.category') }}">Thêm danh mục sản phẩm</a></li>
+              </ul>
+            </li>
+            <li class="sub-menu">
+              <a href="javascript:;">
+                <i class="fa fa-picture-o"></i>
+                <span>Ảnh bìa</span>
+              </a>
+              <ul class="sub">
+                <li><a href="{{ route('admin.get.list.banner') }}">Danh sách ảnh bìa</a></li>
+                <li><a href="{{ route('admin.get.create.banner') }}">Thêm ảnh bìa</a></li>
+              </ul>
+            </li>
+            <li class="sub-menu">
+              <a href="javascript:;">
+                <i class="fa fa-cc"></i>
                 <span>Quảng cáo</span>
               </a>
               <ul class="sub">
@@ -126,18 +134,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <li><a href="{{ route('admin.get.create.adv') }}">Thêm quảng cáo</a></li>
               </ul>
             </li>
+            
+            @endhasAnyrole
             <li class="sub-menu">
               <a href="javascript:;">
-                <i class="fa fa-book"></i>
-                <span>Danh mục sản phẩm</span>
+                <i class="fa fa-cart-arrow-down"></i>
+                <span>Kho hàng</span>
               </a>
               <ul class="sub">
-                <li><a href="{{ URL::to('/add-category-product') }}">Thêm danh mục sản phẩm</a></li>
-                <li><a href="{{ URL::to('/all-category-product') }}">Danh sách sản phẩm</a></li>
+                <li><a href="{{ route('admin.get.list.buycart') }}">Quản lí kho hàng</a></li>
               </ul>
 
             </li>
-
+            @hasrole('admin')
+            <li class="sub-menu">
+              <a href="javascript:;">
+                <i class="fa fa-cc"></i>
+                <span>User</span>
+              </a>
+              <ul class="sub">
+                <li><a href="{{ route('admin.get.list.user') }}">Danh sách người dùng</a></li>
+                <li><a href="{{ route('admin.get.create.user') }}">Thêm người dùng</a></li>
+              </ul>
+            </li>
+            @endhasrole
           </ul>            </div>
           <!-- sidebar menu end-->
         </div>

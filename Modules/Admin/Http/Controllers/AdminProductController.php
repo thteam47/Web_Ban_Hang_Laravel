@@ -9,6 +9,7 @@ use App\Http\Requests\RequestProduct;
 use App\Models\Models\Product;
 use App\Models\Models\Category;
 use DB;
+use Auth;
 class AdminProductController extends Controller
 {
     /**
@@ -17,7 +18,24 @@ class AdminProductController extends Controller
      */
     public function index()
     {
-        $viewData['productList'] = DB::table('products')->join('categories','products.prod_cate','=','categories.c_id')->orderBy('p_id','desc')->get();
+
+        if(Auth::user()->hasRole('seller')){
+            $viewData['productList'] = DB::table('products')->join('categories','products.prod_cate','=','categories.c_id')
+            ->join('users','products.prod_seller','=','users.id')
+            ->where('products.prod_seller',Auth::id())
+            ->orderBy('p_id','desc')
+            ->select('p_id','p_name','p_price','p_image','c_name','p_hot','p_active','name','email')
+            ->paginate(10);
+        }else {
+            $viewData['productList'] = DB::table('products')->join('categories','products.prod_cate','=','categories.c_id')
+            ->join('users','products.prod_seller','=','users.id')
+
+            ->orderBy('p_id','desc')
+            ->select('p_id','p_name','p_price','p_image','c_name','p_hot','p_active','name','email')
+            ->paginate(10);
+        }
+        
+        //dd($viewData['productList']);
         return view('admin::product.index',$viewData);
     }
 
@@ -49,7 +67,14 @@ class AdminProductController extends Controller
         $product->p_promotion =  $requestProduct->p_promotion;
         $product->p_status =  $requestProduct->p_status;
         $product->p_warranty = $requestProduct->p_warranty;
-        $product->p_accessories = $requestProduct->p_accessories;
+        if ($requestProduct->p_accessories == "") {
+            $product->p_accessories = "Không có";
+        } else {
+            $product->p_accessories = $requestProduct->p_accessories;
+        }
+        
+
+
         $product->p_description = $requestProduct->p_description;
         $product->p_image =  $filename;
         $product->p_hot =  $requestProduct->p_hot ? 1 : 0;
@@ -72,9 +97,9 @@ class AdminProductController extends Controller
     public function update(RequestProduct $requestProduct,$p_id){
         $product = Product::find($p_id);
         if($requestProduct->file('imgAdv')){
-            $filename = $request->file('img')->getClientOriginalName();
+            $filename = $requestProduct->file('imgAdv')->getClientOriginalName();
             $product->p_image =  $filename;
-            $requestProduct->file('img')->storeAs('avatar',$filename);
+            $requestProduct->file('imgAdv')->storeAs('avatar',$filename);
         }   
         $product->p_name = $requestProduct->p_name;
         $product->p_description =  $requestProduct->p_description;
@@ -88,8 +113,19 @@ class AdminProductController extends Controller
         $product->p_hot =  $requestProduct->p_hot ? 1 : 0;
         $product->p_active =  $requestProduct->p_active ? 1 : 0;
         $product->p_condition =  $requestProduct->p_condition;
-        $product->prod_cate = $requestProduct->prod_cate;
+        if ($requestProduct->prod_cate == $product->prod_cate) {
+            $product->prod_cate = $requestProduct->prod_cate;
+        }
+        else {
+            $categoryD = Category::find($product->prod_cate);
+            $categoryD->c_total_product = $categoryD->c_total_product -1;
+            $categoryD->save();
+            $categoryU = Category::find($requestProduct->prod_cate);
+            $categoryU->c_total_product = $categoryU->c_total_product +1;
+            $categoryU->save();
+            $product->prod_cate = $requestProduct->prod_cate;
 
+        }      
         $product->save();
 
         return redirect('admin/product');

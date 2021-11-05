@@ -30,7 +30,8 @@ class CreateProductsTable extends Migration
             $table->string('p_image')->nullable();
             $table->integer('prod_cate')->unsigned();
             $table->foreign('prod_cate')->references('c_id')->on('categories')->onDelete('cascade');
-
+            $table->integer('prod_seller')->unsigned();
+            $table->foreign('prod_seller')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
 
         });
